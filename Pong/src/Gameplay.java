@@ -15,11 +15,12 @@ import javax.swing.JPanel;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener{
 	private boolean Play = false;
-	private int Score = 0;
+	private int ScoreP1 = 0;
+	private int ScoreP2 = 0;
 	private Timer timer;
 	private int delay = 8;
-	private int playerY = 310;
-	private int enemyY = 310;
+	private int player1Y = 250;
+	private int player2Y = 250;
 	private int ballPosX = 120;
 	private int ballPosY = 350;
 	private int ballXDir = 2 * randomNum(-1,1);
@@ -56,38 +57,27 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 		
 		//player
 		g.setColor(Color.GREEN);
-		g.fillRect(15, playerY, 8, 100);
+		g.fillRect(15, player1Y, 8, 100);
 		
 		//enemy
 		g.setColor(Color.RED);
-		g.fillRect(675, enemyY, 8, 100);
+		g.fillRect(675, player2Y, 8, 100);
 		
 		//ball
 		g.setColor(Color.WHITE);
 		g.fillOval(ballPosX, ballPosY, 20, 20);
 		
-		//out of bounds loss
-		if(ballPosX < 5) {
+		if(ballPosX > 690 || ballPosX < 5) {
 			Play = false;
 			ballXDir = 0;
 			ballYDir = 0;
 			g.setColor(Color.white);
 			g.setFont(new Font("serif", Font.BOLD, 30));
-			g.drawString("Game Over! Score: " + Score, 200, 300);
+			g.drawString("Game Over!", 250, 200);
 			g.setFont(new Font("serif", Font.BOLD, 30));
-			g.drawString("Press Enter to Restart", 200, 350);
-		}
-		
-		//out of bounds win
-		if(ballPosX > 690) {
-			Play = false;
-			ballXDir = 0;
-			ballYDir = 0;
-			g.setColor(Color.white);
+			g.drawString("P1 Score: " + ScoreP1 + " P2 Score: " + ScoreP2, 200, 250);
 			g.setFont(new Font("serif", Font.BOLD, 30));
-			g.drawString("You Win! Score: " + Score, 200, 300);
-			g.setFont(new Font("serif", Font.BOLD, 30));
-			g.drawString("Press Enter to Restart", 200, 350);
+			g.drawString("Press Enter to Restart", 200, 300);
 		}
 		
 		g.dispose();
@@ -108,13 +98,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 				ballYDir = -ballYDir;
 			}
 			
-			if(new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(15, playerY, 8, 100))) {
+			if(new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(15, player1Y, 8, 100))) {
 				ballXDir = -ballXDir;
-				Score += 5;
+				ScoreP1 += 5;
 			}
 			
-			if(new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(15, enemyY, 8, 100))) {
+			if(new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(15, player2Y, 8, 100))) {
 				ballXDir = -ballXDir;
+				ScoreP2 += 5;
 			}
 			
 		}
@@ -131,34 +122,34 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_UP) {
-			if(playerY >= 590) {
-				playerY = 590;
+			if(player2Y >= 590) {
+				player2Y = 590;
 			} else {
-				moveUp();
+				moveUpP2();
+			}
+		}			
+		
+		if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+			if(player2Y <= 10) {
+				player2Y = 10;
+			} else {
+				moveDownP2();
 			}
 		}
 		
 		if(e.getKeyCode() == KeyEvent.VK_W) {
-			if(playerY >= 590) {
-				playerY = 590;
+			if(player1Y >= 590) {
+				player1Y = 590;
 			} else {
-				moveUp();
-			}
-		}
-		
-		if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-			if(playerY <= 10) {
-				playerY = 10;
-			} else {
-				moveDown();
+				moveUpP1();
 			}
 		}
 		
 		if(e.getKeyCode() == KeyEvent.VK_S) {
-			if(playerY <= 10) {
-				playerY = 10;
+			if(player1Y <= 10) {
+				player1Y = 10;
 			} else {
-				moveDown();
+				moveDownP1();
 			}
 		}
 		
@@ -169,8 +160,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 				ballPosY = 350;
 				ballXDir = randomNum(-1,1);
 				ballYDir = randomNum(-2,2);
-				playerY = 310;
-				Score = 0;
+				player1Y = 250;
+				player2Y = 250;
+				ScoreP1 = 0;
+				ScoreP2 = 0;
 				repaint();
 			}
 		}
@@ -183,14 +176,24 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener{
 		
 	}
 	
-	public void moveUp() {
+	public void moveUpP1() {
 		Play = true;
-		playerY -= 30;
+		player1Y -= 30;
 	}
 	
-	public void moveDown() {
+	public void moveDownP1() {
 		Play = true;
-		playerY += 30;
+		player1Y += 30;
+	}
+	
+	public void moveUpP2() {
+		Play = true;
+		player2Y -= 30;
+	}
+	
+	public void moveDownP2() {
+		Play = true;
+		player2Y += 30;
 	}
 	
 }
