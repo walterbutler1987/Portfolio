@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Enter decimal integer : ");
+        int input = scan.nextInt();
+        convert(input);
+        System.out.println();
+        System.out.print("Enter binary integer : ");
+        String binInput = scan.next();
+        System.out.println(binaryToDecimal(binInput));
+    }
+
+    public static void convert(int number) {
+        if (number > 0) {
+            convert(number / 2);
+            System.out.print(number % 2 + " ");
+        }
+    }
+
+    public static int binaryToDecimal(String binaryInput){
+        int len = binaryInput.length();
+        if (len == 0) return 0;
+        String now = binaryInput.substring(0,1);
+        String later = binaryInput.substring(1);
+        return Integer.parseInt(now) * (int)Math.pow(2, len-1) + binaryToDecimal(later);
+    }
+}
