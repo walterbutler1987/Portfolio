@@ -1,0 +1,25 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        float bmi, weight, height;
+        System.out.println("Please enter your weight in pounds: ");
+        weight = scanner.nextFloat();
+        System.out.println("Please enter your height in inches: ");
+        height = scanner.nextFloat();
+        bmi = ((weight * 703)/(height * height));
+        System.out.print("Your BMI is: " + bmi + ". ");
+
+        if(bmi > 25){
+            System.out.print("This is considered overweight");
+        } else if(bmi < 25 && bmi > 18.5){
+            System.out.println("This is considered optimal weight");
+        } else {
+            System.out.println("This is considered underweight");
+        }
+
+
+    }
+}
