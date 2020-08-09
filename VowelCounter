@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        char letter;
+        int aCounter = 0;
+        int eCounter = 0;
+        int iCounter = 0;
+        int oCounter = 0;
+        int uCounter = 0;
+
+        Scanner scanner = new Scanner(System.in);
+        String sentence = scanner.nextLine();
+
+        for(int i = 0; i < sentence.length(); i++){
+            letter = sentence.toLowerCase().charAt(i);
+            if(letter == 'a') {
+                aCounter++;
+            } else if(letter == 'e'){
+                eCounter++;
+            } else if(letter == 'i') {
+                iCounter++;
+            } else if(letter == 'o') {
+                oCounter++;
+            } else if(letter == 'u') {
+                uCounter++;
+            }
+        }
+        System.out.println("a: " + aCounter + "\ne: " + eCounter + "\ni: " + iCounter + "\no: " + oCounter + "\nu: " + uCounter);
+    }
+}
