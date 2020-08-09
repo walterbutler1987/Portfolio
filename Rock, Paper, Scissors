@@ -1,0 +1,76 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int win = 0;
+        int lose = 0;
+        int draw = 0;
+        boolean cont = true;
+        Random rand = new Random();
+
+        while(cont){
+            int randomNumber = (rand.nextInt(3) * rand.nextInt(3) * rand.nextInt(3)) / 3;
+            System.out.println("Enter choice: (rock, paper, or scissors)");
+            System.out.println("Type end to quit");
+            String input = scanner.nextLine().toLowerCase();
+
+            switch(input){
+                case "rock":
+                    if(randomNumber == 0){
+                        System.out.println("Draw");
+                        draw++;
+                    } else if (randomNumber == 1){
+                        System.out.println("Paper beats rock. You Lose...");
+                        lose++;
+                    } else if (randomNumber == 2){
+                        System.out.println("Rock beats scissors. You Win!");
+                        win++;
+                    }
+                    break;
+                case "paper":
+                    if(randomNumber == 0){
+                        System.out.println("Paper beats rock. You Win!");
+                        win++;
+                    } else if (randomNumber == 1){
+                        System.out.println("Draw");
+                        draw++;
+                    } else if (randomNumber == 2){
+                        System.out.println("Scissors beats paper. You Lose...");
+                        lose++;
+                    }
+                    break;
+                case "scissors":
+                    if(randomNumber == 0){
+                        System.out.println("Rock beats scissors. You Lose...");
+                        lose++;
+                    } else if (randomNumber == 1){
+                        System.out.println("Scissors beat paper. You Win!");
+                        win++;
+                    } else if (randomNumber == 2){
+                        System.out.println("Draw");
+                        draw++;
+                    }
+                    break;
+                case "end":
+                    cont = false;
+                    break;
+                default:
+                    System.out.println("Check your spelling...");
+                    System.out.println("Try again? Yes or no...");
+                    input = scanner.nextLine().toLowerCase();
+                    if(input.equals("yes")){
+                        cont = true;
+                    } else if(input.equals("no")){
+                        cont = false;
+                    }
+                    break;
+            }
+        }
+        System.out.println("You won: " + win + " games");
+        System.out.println("You lost: " + lose + " games");
+        System.out.println("You drew: " + draw + " games");
+    }
+}
