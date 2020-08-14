@@ -1,0 +1,52 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        String dir[] = {"EAST", "EAST", "WEST", "NORTH", "WEST", "EAST", "EAST", "SOUTH", "NORTH", "WEST"};
+        String directions[];
+        ArrayList<String> newDir = new ArrayList<String>();
+        int dirNS = 0;
+        int dirEW = 0;
+
+        for(int i = 0; i < dir.length; i++){
+            if(dir[i].toLowerCase().equals("north")){
+                dirNS += 1;
+            } else if(dir[i].toLowerCase().equals("east")){
+                dirEW += 1;
+            } else if(dir[i].toLowerCase().equals("south")){
+                dirNS -= 1;
+            } else if(dir[i].toLowerCase().equals("west")){
+                dirEW -= 1;
+            }
+        }
+
+        while(dirNS != 0){
+            if(dirNS > 0){
+                newDir.add("NORTH");
+                dirNS--;
+            } else if(dirEW < 0){
+                newDir.add("SOUTH");
+                dirNS++;
+            }
+        }
+
+        while(dirEW != 0){
+            if(dirEW > 0){
+                newDir.add("EAST");
+                dirEW--;
+            } else if(dirEW < 0){
+                newDir.add("WEST");
+                dirEW++;
+            }
+        }
+
+        directions = new String[newDir.size()];
+
+        for(int i = 0; i < newDir.size(); i++){
+            directions[i] = newDir.get(i);
+            System.out.println(directions[i]);
+        }
+
+        System.out.println(directions);
+    }
+}
