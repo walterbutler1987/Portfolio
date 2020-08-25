@@ -1,0 +1,26 @@
+package com.company.test;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        int base, power, result;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter base number: ");
+        base = scanner.nextInt();
+        System.out.print("Enter power raised: ");
+        power = scanner.nextInt();
+
+        result = (int) Math.pow(base, power);
+        System.out.println(result);
+    }
+    
+    private static int calculateWithRecursion(int base, int power){
+        if(power != 0){
+            return (base*calculateWithRecursion(base, power-1));
+        } else {
+            return 1;
+        }
+    }
+}
